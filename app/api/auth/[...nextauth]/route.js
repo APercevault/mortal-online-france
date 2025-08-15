@@ -1,4 +1,4 @@
-import NextAuthPkg from "next-auth";
+import NextAuthPkg from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
 const NextAuth = NextAuthPkg.default ?? NextAuthPkg;
