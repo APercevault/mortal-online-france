@@ -20,6 +20,30 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Backoffice
+
+An admin interface is available at `/admin`. It uses Discord OAuth via [NextAuth](https://next-auth.js.org/).
+
+Create a `.env` file based on `.env.example` with your credentials:
+
+```
+DISCORD_CLIENT_ID=your_client_id
+DISCORD_CLIENT_SECRET=your_client_secret
+NEXTAUTH_SECRET=secure_random_string
+ADMIN_IDS=discord_id_1,discord_id_2
+```
+
+Only users whose Discord IDs are listed in `ADMIN_IDS` receive the `admin` role and can access the backoffice.
+
+## Development
+
+Run the test suite and lint checks with:
+
+```
+npm test
+npm run lint
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
