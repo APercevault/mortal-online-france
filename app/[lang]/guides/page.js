@@ -1,18 +1,19 @@
-import fs from 'fs';
-import path from 'path';
-import Link from 'next/link';
+import fs from "fs";
+import path from "path";
+import Link from "next/link";
 
-export default function GuidesPage() {
-  const guidesDir = path.join(process.cwd(), 'content', 'guides');
+export default function GuidesPage({ params }) {
+  const lang = params.lang;
+  const guidesDir = path.join(process.cwd(), "content", lang, "guides");
   const files = fs.existsSync(guidesDir) ? fs.readdirSync(guidesDir) : [];
   const guides = files
-    .filter((file) => file.endsWith('.json'))
+    .filter((file) => file.endsWith(".json"))
     .map((file) => {
       const { title } = JSON.parse(
-        fs.readFileSync(path.join(guidesDir, file), 'utf8')
+        fs.readFileSync(path.join(guidesDir, file), "utf8")
       );
       return {
-        slug: file.replace(/\.json$/, ''),
+        slug: file.replace(/\.json$/, ""),
         title,
       };
     });
@@ -24,7 +25,7 @@ export default function GuidesPage() {
         {guides.map((guide) => (
           <li key={guide.slug}>
             <Link
-              href={`/guides/${guide.slug}`}
+              href={`/${lang}/guides/${guide.slug}`}
               className="text-blue-500 hover:underline"
             >
               {guide.title}
@@ -35,4 +36,3 @@ export default function GuidesPage() {
     </div>
   );
 }
-
