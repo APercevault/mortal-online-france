@@ -42,10 +42,10 @@ export default function Header({ lang }) {
           className="ml-auto border px-2 py-1 rounded flex items-center gap-2"
         >
           <Image
-            src={`/flags/${lang}.svg`}
+            src={`/flags/${otherLang}.svg`}
             width={20}
             height={15}
-            alt={lang === "fr" ? "Français" : "English"}
+            alt={switchLabel}
           />
           {switchLabel}
         </Link>
