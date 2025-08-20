@@ -1,9 +1,3 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  i18n: {
-    locales: ["fr", "en"],
-    defaultLocale: "fr",
-  },
-};
 
-export default nextConfig;
+// Localization is handled via the `[lang]` route segment.
+export default {};
