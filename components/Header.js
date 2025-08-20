@@ -25,8 +25,17 @@ export default function Header({ lang }) {
   const t = labels[lang] || labels.fr;
   const pathname = usePathname();
   const otherLang = lang === "fr" ? "en" : "fr";
-  const pathWithoutLang = pathname.replace(/^\/(fr|en)/, "");
-  const switchHref = `/${otherLang}${pathWithoutLang}`;
+
+  // Remove the current language prefix from the path. If the resulting
+  // string is empty, we're on the homepage and we keep it that way so the
+  // switch link leads back to the French root.
+  const pathWithoutLang = pathname.replace(/^\/(fr|en)/, "") || "/";
+  const cleanPath = pathWithoutLang === "/" ? "" : pathWithoutLang;
+
+  // Build the destination URL for the language switcher. When the current
+  // language is English we explicitly link back to the French version of the
+  // same page.
+  const switchHref = `/${otherLang}${cleanPath}`;
   const switchLabel = otherLang === "fr" ? "Français" : "English";
 
   return (
