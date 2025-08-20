@@ -1,6 +1,7 @@
 import Link from "next/link";
 import LangSwitcher from "./LangSwitcher";
 
+
 const labels = {
   fr: {
     home: "Accueil",
