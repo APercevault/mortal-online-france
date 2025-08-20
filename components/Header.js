@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LangSwitcher from "./LangSwitcher";
 
 const labels = {
   fr: {
@@ -28,6 +29,7 @@ export default function Header({ lang }) {
         <Link href={`/${lang}/guides`}>{t.guides}</Link>
         <Link href={`/${lang}/guilds`}>{t.guilds}</Link>
         <Link href={`/${lang}/contact`}>{t.contact}</Link>
+        <LangSwitcher lang={lang} className="ml-auto" />
       </nav>
     </header>
   );
