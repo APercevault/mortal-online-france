@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const labels = {
@@ -38,8 +39,14 @@ export default function Header({ lang }) {
         <Link href={`/${lang}/contact`}>{t.contact}</Link>
         <Link
           href={switchHref}
-          className="ml-auto border px-2 py-1 rounded"
+          className="ml-auto border px-2 py-1 rounded flex items-center gap-2"
         >
+          <Image
+            src={`/flags/${lang}.svg`}
+            width={20}
+            height={15}
+            alt={lang === "fr" ? "Français" : "English"}
+          />
           {switchLabel}
         </Link>
       </nav>
