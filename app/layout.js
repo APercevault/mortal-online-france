@@ -8,9 +8,11 @@ export const metadata = {
   description: "Actualités et guides francophones pour Mortal Online 2",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, params }) {
+  const lang = params?.lang || "fr";
+
   return (
-    <html lang="fr">
+    <html lang={lang}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -24,9 +26,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <Header />
+        <Header lang={lang} />
         <main className="flex-1 container mx-auto p-4">{children}</main>
-        <Footer />
+        <Footer lang={lang} />
       </body>
     </html>
   );
