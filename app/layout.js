@@ -26,7 +26,7 @@ export default function RootLayout({ children, params }) {
         />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <Header lang={lang} />
+        <Header />
         <main className="flex-1 container mx-auto p-4">{children}</main>
         <Footer lang={lang} />
       </body>
