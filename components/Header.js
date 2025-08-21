@@ -21,9 +21,10 @@ const labels = {
   },
 };
 
-export default function Header({ lang }) {
-  const t = labels[lang] || labels.fr;
+export default function Header() {
   const pathname = usePathname();
+  const lang = pathname.startsWith("/en") ? "en" : "fr";
+  const t = labels[lang] || labels.fr;
   const otherLang = lang === "fr" ? "en" : "fr";
 
   // Remove the current language prefix from the path. If the resulting
