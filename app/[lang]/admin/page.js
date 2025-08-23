@@ -11,6 +11,9 @@ const texts = {
     welcome: "Bienvenue",
     role: "Rôle",
     signOut: "Se déconnecter",
+    guilds: "Guildes",
+    comments: "Commentaires",
+    users: "Utilisateurs",
   },
   en: {
     signIn: "Sign in with Discord",
@@ -19,6 +22,9 @@ const texts = {
     welcome: "Welcome",
     role: "Role",
     signOut: "Sign out",
+    guilds: "Guilds",
+    comments: "Comments",
+    users: "Users",
   },
 };
 
@@ -37,7 +43,7 @@ export default async function AdminPage({ params }) {
     );
   }
 
-  if (session.user.role !== "admin") {
+  if (session.user.role !== "superadmin") {
     return <p className="p-8">{t.accessDenied}</p>;
   }
 
@@ -50,6 +56,23 @@ export default async function AdminPage({ params }) {
       <p className="mb-4">
         {t.role}: {session.user.role}
       </p>
+      <nav className="mb-4 space-y-2">
+        <div>
+          <a href={`/${lang}/admin/guilds`} className="underline">
+            {t.guilds}
+          </a>
+        </div>
+        <div>
+          <a href={`/${lang}/admin/comments`} className="underline">
+            {t.comments}
+          </a>
+        </div>
+        <div>
+          <a href={`/${lang}/admin/users`} className="underline">
+            {t.users}
+          </a>
+        </div>
+      </nav>
       <a href="/api/auth/signout" className="underline">
         {t.signOut}
       </a>
