@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { getGuild, updateGuild, isGuildAdmin } from "@/lib/guilds";
+import { prisma } from "@/lib/prisma.js";
 
 export async function GET(request, { params }) {
-  const guild = getGuild(params.guildId);
+  const guild = await prisma.guild.findUnique({ where: { id: params.guildId } });
   if (!guild) {
     return new Response("Not found", { status: 404 });
   }
@@ -17,14 +17,24 @@ export async function PUT(request, { params }) {
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
   }
-  if (!isGuildAdmin(params.guildId, session.user.id)) {
+  const admin = await prisma.guildAdmin.findUnique({
+    where: {
+      userId_guildId: {
+        userId: session.user.id,
+        guildId: params.guildId,
+      },
+    },
+  });
+  if (!admin) {
     return new Response("Forbidden", { status: 403 });
   }
   const data = await request.json();
-  const updated = updateGuild(params.guildId, data);
-  if (!updated) {
-    return new Response("Not found", { status: 404 });
-  }
+  const updated = await prisma.guild.update({
+    where: { id: params.guildId },
+    data: {
+      description: data.description ?? undefined,
+    },
+  });
   return new Response(JSON.stringify(updated), {
     headers: { "Content-Type": "application/json" },
   });
