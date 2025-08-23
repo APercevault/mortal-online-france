@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { guilds } from "../../../lib/guilds.js";
 
 export async function generateMetadata({ params: { lang } }) {
   return {
@@ -34,6 +36,14 @@ export default function GuildsPage({ params }) {
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold">{t.title}</h1>
+
+      <ul className="list-disc ml-6 space-y-2">
+        {guilds.map((g) => (
+          <li key={g.id}>
+            <Link href={`/${lang}/guilds/${g.slug}`}>{g.name}</Link>
+          </li>
+        ))}
+      </ul>
 
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">{t.twitch}</h2>
