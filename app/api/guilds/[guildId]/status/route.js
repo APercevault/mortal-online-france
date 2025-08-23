@@ -9,20 +9,20 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 
-  const { id } = params;
+  const { guildId } = params;
   const { action } = await request.json();
-  const guild = getGuildById(id);
+  const guild = getGuildById(guildId);
 
   if (!guild) {
     return NextResponse.json({ error: 'Guild not found' }, { status: 404 });
   }
 
   if (action === 'approve') {
-    updateGuildStatus(id, 'published');
-    addGuildAdmin(id, guild.authorId);
+    updateGuildStatus(guildId, 'published');
+    addGuildAdmin(guildId, guild.authorId);
     notifyUser(guild.authorId, 'Your guild has been approved');
   } else if (action === 'reject') {
-    updateGuildStatus(id, 'rejected');
+    updateGuildStatus(guildId, 'rejected');
     notifyUser(guild.authorId, 'Your guild has been rejected');
   } else {
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });

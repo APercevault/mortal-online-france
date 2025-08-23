@@ -1,5 +1,5 @@
-import { addVote, getGuildById, getAverageRating } from "../../../../lib/guilds.js";
-import { authOptions } from "../../../../lib/auth.js";
+import { addVote, getGuildById, getAverageRating } from "@/lib/guilds";
+import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 export async function POST(request, { params }) {
@@ -8,7 +8,7 @@ export async function POST(request, { params }) {
     return new Response("Unauthorized", { status: 401 });
   }
   const { rating } = await request.json();
-  const guild = addVote(params.id, session.user.id, Number(rating));
+  const guild = addVote(params.guildId, session.user.id, Number(rating));
   if (!guild) {
     return new Response("Guild not found", { status: 404 });
   }
@@ -18,7 +18,7 @@ export async function POST(request, { params }) {
 
 export async function GET(request, { params }) {
   const session = await getServerSession(authOptions);
-  const guild = getGuildById(params.id);
+  const guild = getGuildById(params.guildId);
   if (!guild) {
     return new Response("Guild not found", { status: 404 });
   }
