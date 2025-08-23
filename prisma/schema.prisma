@@ -13,6 +13,12 @@ enum Role {
   user
 }
 
+enum GuildStatus {
+  pending
+  published
+  rejected
+}
+
 model User {
   id            String       @id @default(cuid())
   name          String?
@@ -23,6 +29,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   guildAdmins   GuildAdmin[]
+  guildVotes    GuildVote[]
+  guildComments GuildComment[]
 }
 
 model Account {
@@ -63,7 +71,14 @@ model VerificationToken {
 model Guild {
   id           String       @id @default(cuid())
   name         String
+  description  String
+  status       GuildStatus @default(pending)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
   guildAdmins  GuildAdmin[]
+  votes        GuildVote[]
+  comments     GuildComment[]
+  videos       GuildVideo[]
 }
 
 model GuildAdmin {
@@ -75,5 +90,36 @@ model GuildAdmin {
   guild  Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
   @@unique([userId, guildId])
+}
+
+model GuildVote {
+  id        String   @id @default(cuid())
+  value     Int
+  userId    String
+  guildId   String
+  createdAt DateTime @default(now())
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guild     Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, guildId])
+}
+
+model GuildComment {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  guildId   String
+  createdAt DateTime @default(now())
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guild     Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+}
+
+model GuildVideo {
+  id        String   @id @default(cuid())
+  url       String
+  type      String
+  guildId   String
+  createdAt DateTime @default(now())
+  guild     Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
 }
 

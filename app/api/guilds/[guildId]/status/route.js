@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { getGuildById, updateGuildStatus, addGuildAdmin, notifyUser } from '@/lib/guilds';
+import { prisma } from '@/lib/prisma.js';
 
 export async function POST(request, { params }) {
   const session = await getServerSession(authOptions);
@@ -11,19 +11,32 @@ export async function POST(request, { params }) {
 
   const { guildId } = params;
   const { action } = await request.json();
-  const guild = getGuildById(guildId);
+  const guild = await prisma.guild.findUnique({
+    where: { id: guildId },
+    include: { guildAdmins: true },
+  });
 
   if (!guild) {
     return NextResponse.json({ error: 'Guild not found' }, { status: 404 });
   }
 
   if (action === 'approve') {
-    updateGuildStatus(guildId, 'published');
-    addGuildAdmin(guildId, guild.authorId);
-    notifyUser(guild.authorId, 'Your guild has been approved');
+    await prisma.guild.update({
+      where: { id: guildId },
+      data: { status: 'published' },
+    });
+    const creator = guild.guildAdmins[0];
+    if (creator) {
+      await prisma.user.update({
+        where: { id: creator.userId },
+        data: { role: 'admin' },
+      });
+    }
   } else if (action === 'reject') {
-    updateGuildStatus(guildId, 'rejected');
-    notifyUser(guild.authorId, 'Your guild has been rejected');
+    await prisma.guild.update({
+      where: { id: guildId },
+      data: { status: 'rejected' },
+    });
   } else {
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   }
