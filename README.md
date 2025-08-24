@@ -47,6 +47,13 @@ npx prisma migrate dev
 
 This applies the Prisma migrations and creates the necessary tables for authentication.
 
+### Deploying with SQLite on Vercel
+
+Vercel's root filesystem is read-only. If you continue using SQLite, set the
+`DATABASE_URL` environment variable to a writable location such as
+`file:/tmp/dev.db`. The database will be ephemeral, so consider migrating to a
+managed database (PostgreSQL, MySQL, etc.) for persistent storage.
+
 ## Development
 
 Run the test suite and lint checks with:
