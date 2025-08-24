@@ -29,7 +29,7 @@ export default async function NewGuildPage({ params }) {
   if (!session) {
     return (
       <div className="p-8">
-        <a href="/api/auth/signin" className="underline">
+        <a href="/api/auth/signin/discord" className="underline">
           {t.signIn}
         </a>
       </div>
