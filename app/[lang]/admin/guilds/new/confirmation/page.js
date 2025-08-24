@@ -13,7 +13,7 @@ export default function GuildConfirmationPage({ params }) {
   const lang = params.lang;
   const t = texts[lang] || texts.fr;
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-2xl mb-4">{t.title}</h1>
       <p>{t.message}</p>
     </div>

@@ -28,7 +28,7 @@ export default async function NewGuildPage({ params }) {
 
   if (!session) {
     return (
-      <div className="p-8">
+      <div>
         <a href="/api/auth/signin/discord" className="underline">
           {t.signIn}
         </a>
@@ -37,7 +37,7 @@ export default async function NewGuildPage({ params }) {
   }
 
   return (
-    <div className="p-8 max-w-xl">
+    <div className="max-w-xl">
       <h1 className="text-2xl mb-4">{t.title}</h1>
       <form action={`/api/guilds?lang=${lang}`} method="POST" className="space-y-4">
         <div>

@@ -22,11 +22,11 @@ export default async function GuildsAdminPage({ params }) {
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role !== "superadmin") {
-    return <p className="p-8">{t.accessDenied}</p>;
+    return <p>{t.accessDenied}</p>;
   }
 
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-xl mb-4">{t.title}</h1>
       <ul>
         {guilds.map((g) => (
