@@ -39,6 +39,14 @@ Only users whose Discord IDs are listed in `ADMIN_IDS` receive the `admin` role.
 
 `NEXTAUTH_URL` must be set to the public URL of your site so that Discord OAuth can redirect users correctly.
 
+After configuring your environment variables, initialize the local database with:
+
+```
+npx prisma migrate dev
+```
+
+This applies the Prisma migrations and creates the necessary tables for authentication.
+
 ## Development
 
 Run the test suite and lint checks with:
