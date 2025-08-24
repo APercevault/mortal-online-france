@@ -10,7 +10,6 @@ const texts = {
     backoffice: "Backoffice",
     welcome: "Bienvenue",
     role: "Rôle",
-    signOut: "Se déconnecter",
     guilds: "Guildes",
     comments: "Commentaires",
     users: "Utilisateurs",
@@ -21,7 +20,6 @@ const texts = {
     backoffice: "Admin panel",
     welcome: "Welcome",
     role: "Role",
-    signOut: "Sign out",
     guilds: "Guilds",
     comments: "Comments",
     users: "Users",
@@ -35,7 +33,7 @@ export default async function AdminPage({ params }) {
 
   if (!session) {
     return (
-      <div className="p-8">
+      <div>
         <a href="/api/auth/signin/discord" className="underline">
           {t.signIn}
         </a>
@@ -44,11 +42,11 @@ export default async function AdminPage({ params }) {
   }
 
   if (session.user.role !== "superadmin") {
-    return <p className="p-8">{t.accessDenied}</p>;
+    return <p>{t.accessDenied}</p>;
   }
 
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-xl mb-4">{t.backoffice}</h1>
       <p className="mb-2">
         {t.welcome}, {session.user.name}
@@ -73,9 +71,6 @@ export default async function AdminPage({ params }) {
           </a>
         </div>
       </nav>
-      <a href="/api/auth/signout" className="underline">
-        {t.signOut}
-      </a>
     </div>
   );
 }

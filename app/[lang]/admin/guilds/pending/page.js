@@ -27,7 +27,7 @@ export default async function PendingGuildsPage({ params }) {
 
   if (!session) {
     return (
-      <div className="p-8">
+      <div>
         <a href="/api/auth/signin/discord" className="underline">
           {t.signIn}
         </a>
@@ -36,13 +36,13 @@ export default async function PendingGuildsPage({ params }) {
   }
 
   if (session.user.role !== 'superadmin') {
-    return <p className="p-8">{t.accessDenied}</p>;
+    return <p>{t.accessDenied}</p>;
   }
 
   const guilds = getPendingGuilds();
 
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-xl mb-4">{t.title}</h1>
       <ul>
         {guilds.map((g) => (

@@ -9,13 +9,13 @@ export default async function EditGuildPage({ params }) {
   const guild = getGuild(guildId);
 
   if (!session || !isGuildAdmin(guildId, session.user.id)) {
-    return <p className="p-8">Access denied</p>;
+    return <p>Access denied</p>;
   }
   if (!guild) {
-    return <p className="p-8">Guild not found</p>;
+    return <p>Guild not found</p>;
   }
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-2xl mb-4">Edit Guild</h1>
       <GuildEditForm guild={guild} />
     </div>
