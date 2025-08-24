@@ -29,12 +29,15 @@ Create a `.env` file based on `.env.example` with your credentials:
 ```
 DISCORD_CLIENT_ID=your_client_id
 DISCORD_CLIENT_SECRET=your_client_secret
+NEXTAUTH_URL=https://your-public-url
 NEXTAUTH_SECRET=secure_random_string
 ADMIN_IDS=discord_id_1,discord_id_2
 SUPERADMIN_IDS=discord_id_0
 ```
 
 Only users whose Discord IDs are listed in `ADMIN_IDS` receive the `admin` role. IDs in `SUPERADMIN_IDS` are granted the `superadmin` role with elevated permissions such as guild moderation.
+
+`NEXTAUTH_URL` must be set to the public URL of your site so that Discord OAuth can redirect users correctly.
 
 ## Development
 
