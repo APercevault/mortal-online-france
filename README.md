@@ -101,3 +101,7 @@ import { addArticle, getArticles } from './lib/articles'
 await addArticle({ titre: 'Salut', contenu: 'Mon texte' })
 const articles = await getArticles()
 ```
+
+After adding some documents, visit `http://localhost:3000/fr/articles` to see them rendered from Firestore. Replace `fr` with `en` for the English version.
+
+If you encounter a `PERMISSION_DENIED` error, ensure that the **Cloud Firestore API** is enabled for your Firebase project in the [Google Cloud Console](https://console.developers.google.com/apis/api/firestore.googleapis.com/overview).
