@@ -1,11 +1,6 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-
-export default function AuthErrorPage() {
-  const searchParams = useSearchParams();
-  const error = searchParams.get('error');
-  const message = searchParams.get('message');
+export default function AuthErrorPage({ searchParams }) {
+  const error = searchParams?.error;
+  const message = searchParams?.message;
 
   return (
     <div>
